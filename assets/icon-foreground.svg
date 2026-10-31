@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 432 432">
+  <!-- Primeiro plano do ícone adaptativo: a área segura é o círculo central de 264px. -->
+  <g transform="translate(200 240) scale(.72)">
+    <ellipse cx="0" cy="92" rx="84" ry="16" fill="#000" opacity=".28"/>
+    <circle r="92" fill="#15122b"/>
+    <circle r="92" fill="none" stroke="#000" stroke-opacity=".35" stroke-width="6"/>
+    <circle cx="-32" cy="-34" r="24" fill="#4a4a66"/>
+    <circle cx="-40" cy="-42" r="9" fill="#8f8fb8"/>
+    <rect x="34" y="-108" width="34" height="34" rx="4" fill="#4a4a66" transform="rotate(35 51 -91)"/>
+    <path d="M62 -112 q18 -26 44 -18" fill="none" stroke="#c8742f" stroke-width="9" stroke-linecap="round"/>
+    <g transform="translate(108 -132)">
+      <path d="M0 -30 L8 -9 L30 -8 L12 5 L19 27 L0 14 L-19 27 L-12 5 L-30 -8 L-8 -9 Z" fill="#ffb020"/>
+      <circle r="9" fill="#fff4c8"/>
+    </g>
+  </g>
+</svg>

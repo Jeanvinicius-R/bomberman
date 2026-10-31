@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <!--CSP-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#15122b">
+  <meta name="color-scheme" content="dark">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="referrer" content="no-referrer">
+  <title>Bombástico</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <div class="hud">
+    <div><small>FASE</small><b id="hLevel">1</b></div>
+    <div><small>VIDAS</small><b id="hLives">3</b></div>
+    <div><small>TEMPO</small><b id="hTime">3:00</b></div>
+    <div><small>PONTOS</small><b id="hScore">0</b></div>
+    <div><small>B / F</small><b id="hPow">1/2</b></div>
+    <button class="pausebtn" id="pauseBtn" type="button" aria-label="Pausar">II</button>
+  </div>
+
+  <div class="arena" id="arena">
+    <canvas id="cv" aria-label="Arena do jogo"></canvas>
+    <div class="overlay" id="overlay">
+
+      <section class="panel title" data-p="title" id="titleScreen" tabindex="0" role="button" aria-label="Toque para começar">
+        <div class="logo big" role="img" aria-label="Bombástico">
+          <svg class="logo-bomb" viewBox="0 0 80 80" aria-hidden="true"><ellipse cx="40" cy="72" rx="22" ry="5" fill="#000" opacity=".3"/><circle cx="38" cy="46" r="24" fill="#0e0c1f" stroke="#4a4a66" stroke-width="3"/><circle cx="28" cy="36" r="6" fill="#6d6d99"/><rect x="32" y="16" width="13" height="9" rx="2" fill="#4a4a66"/><path d="M42 17 Q52 6 62 12" fill="none" stroke="#c8742f" stroke-width="4" stroke-linecap="round"/><g class="spark"><path d="M62 3 L64.5 9.5 L71 10 L66 14 L67.5 20.5 L62 17 L56.5 20.5 L58 14 L53 10 L59.5 9.5 Z" fill="#ffb020"/><circle cx="62" cy="12" r="3" fill="#fff4c8"/></g></svg>
+          <span class="logo-word" aria-hidden="true"><span style="--i:0">B</span><span style="--i:1">O</span><span style="--i:2">M</span><span style="--i:3">B</span><span style="--i:4">Á</span><span style="--i:5">S</span><span style="--i:6">T</span><span style="--i:7">I</span><span style="--i:8">C</span><span style="--i:9">O</span></span>
+        </div>
+        <p class="tagline">EXPLODA. FUJA. SOBREVIVA.</p>
+        <p class="tap">TOQUE PARA COMEÇAR</p>
+      </section>
+
+      <section class="panel" data-p="menu" hidden>
+        <div class="logo small" role="img" aria-label="Bombástico">
+          <svg class="logo-bomb" viewBox="0 0 80 80" aria-hidden="true"><ellipse cx="40" cy="72" rx="22" ry="5" fill="#000" opacity=".3"/><circle cx="38" cy="46" r="24" fill="#0e0c1f" stroke="#4a4a66" stroke-width="3"/><circle cx="28" cy="36" r="6" fill="#6d6d99"/><rect x="32" y="16" width="13" height="9" rx="2" fill="#4a4a66"/><path d="M42 17 Q52 6 62 12" fill="none" stroke="#c8742f" stroke-width="4" stroke-linecap="round"/><g class="spark"><path d="M62 3 L64.5 9.5 L71 10 L66 14 L67.5 20.5 L62 17 L56.5 20.5 L58 14 L53 10 L59.5 9.5 Z" fill="#ffb020"/><circle cx="62" cy="12" r="3" fill="#fff4c8"/></g></svg>
+          <span class="logo-word" aria-hidden="true"><span style="--i:0">B</span><span style="--i:1">O</span><span style="--i:2">M</span><span style="--i:3">B</span><span style="--i:4">Á</span><span style="--i:5">S</span><span style="--i:6">T</span><span style="--i:7">I</span><span style="--i:8">C</span><span style="--i:9">O</span></span>
+        </div>
+        <p>Explodir, fugir e sobreviver. Quantas fases você aguenta?</p>
+        <p class="who">Jogador: <b id="who">-</b> <button class="link" id="renameBtn" type="button">trocar</button></p>
+        <div class="stack">
+          <button class="btn" id="playBtn" type="button">JOGAR</button>
+          <button class="btn ghost" id="howBtn" type="button">COMO JOGAR</button>
+          <button class="btn ghost" id="rankBtn" type="button">RANKING</button>
+          <button class="btn ghost" id="soundBtn" type="button">SOM: LIGADO</button>
+        </div>
+        <p id="bestLine"></p>
+        <p class="version" id="version"></p>
+      </section>
+
+      <section class="panel" data-p="name" hidden>
+        <h2>BEM-VINDO!</h2>
+        <form id="nameForm" class="stack" autocomplete="off" novalidate>
+          <div class="field">
+            <label for="nick">Como você quer aparecer no ranking?</label>
+            <input id="nick" name="nick" type="text" maxlength="12" placeholder="Seu apelido" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done">
+            <div class="err" id="nameErr" role="alert"></div>
+          </div>
+          <button class="btn" type="submit">CONTINUAR</button>
+          <button class="btn ghost" id="nameCancel" type="button">VOLTAR</button>
+        </form>
+        <p>De 2 a 12 caracteres, com letras, números, espaço, _ ou -.</p>
+      </section>
+
+      <section class="panel" data-p="howto" hidden>
+        <h2>COMO JOGAR</h2>
+        <div class="help">
+          <div class="row"><div class="chip neutral">&#9654;</div><div><b>Mover</b><span>Deslize no direcional. No computador, use as setas ou WASD.</span></div></div>
+          <div class="row"><div class="chip b">B</div><div><b>Soltar bomba</b><span>Toque em BOMBA. Ela explode em cruz depois de 2 segundos. Saia de perto!</span></div></div>
+          <div class="row"><div class="chip door">&#9650;</div><div><b>Objetivo</b><span>Elimine todos os monstros e entre na porta, escondida atrás de um bloco, antes do tempo acabar.</span></div></div>
+          <h3>ITENS DOS BLOCOS</h3>
+          <div class="row"><div class="chip b">B</div><div><b>Mais uma bomba</b></div></div>
+          <div class="row"><div class="chip f">F</div><div><b>Explosão maior</b></div></div>
+          <div class="row"><div class="chip v">V</div><div><b>Mais velocidade</b></div></div>
+          <div class="row"><div class="chip h">+</div><div><b>Vida extra</b></div></div>
+          <h3>INIMIGOS</h3>
+          <div class="row"><div class="chip blob">o</div><div><b>Gosma</b><span>Anda sem rumo pelo mapa.</span></div></div>
+          <div class="row"><div class="chip chase">x</div><div><b>Caçador</b><span>Persegue você quando chega perto. Aparece a partir da fase 3.</span></div></div>
+          <div class="row"><div class="chip ghost">~</div><div><b>Fantasma</b><span>Flutua e atravessa blocos. Aparece a partir da fase 5.</span></div></div>
+        </div>
+        <div class="stack"><button class="btn" id="howOk" type="button">ENTENDI</button></div>
+      </section>
+
+      <section class="panel" data-p="rank" hidden>
+        <h2>RANKING</h2>
+        <p>Melhores partidas neste aparelho.</p>
+        <div class="tablewrap"><table><thead><tr><th>#</th><th>JOGADOR</th><th>FASE</th><th>PONTOS</th></tr></thead><tbody id="rankBody"></tbody></table></div>
+        <div class="stack"><button class="btn" id="rankBack" type="button">VOLTAR</button></div>
+      </section>
+
+      <section class="panel" data-p="pause" hidden>
+        <h2>PAUSADO</h2>
+        <div class="stack">
+          <button class="btn" id="resumeBtn" type="button">CONTINUAR</button>
+          <button class="btn ghost" id="quitBtn" type="button">SAIR PARA O MENU</button>
+        </div>
+      </section>
+
+      <section class="panel" data-p="clear" hidden>
+        <h2 id="clearTitle">FASE COMPLETA</h2>
+        <p id="clearText"></p>
+        <div class="stack"><button class="btn" id="nextBtn" type="button">PRÓXIMA FASE</button></div>
+      </section>
+
+      <section class="panel" data-p="over" hidden>
+        <h2>FIM DE JOGO</h2>
+        <div class="big" id="overScore">0</div>
+        <p id="overText"></p>
+        <div class="tablewrap"><table><thead><tr><th>#</th><th>JOGADOR</th><th>FASE</th><th>PONTOS</th></tr></thead><tbody id="overBody"></tbody></table></div>
+        <div class="stack">
+          <button class="btn" id="againBtn" type="button">JOGAR DE NOVO</button>
+          <button class="btn ghost" id="menuBtn" type="button">MENU</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="dpad" id="dpad" aria-label="Direcional">
+      <span class="u">&#9650;</span><span class="d">&#9660;</span><span class="l">&#9664;</span><span class="r">&#9654;</span>
+    </div>
+    <button class="bombbtn" id="bombBtn" type="button">BOMBA</button>
+  </div>
+</body>
+</html>

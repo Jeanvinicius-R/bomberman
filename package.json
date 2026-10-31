@@ -1,0 +1,46 @@
+{
+  "name": "bombastico",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bombástico: jogo de arena com bombas para celular",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "check": "npm run lint && npm test && npm run build",
+    "icons": "node scripts/gen-icons.mjs",
+    "android:sync": "npm run build && cap sync android",
+    "android:open": "cap open android",
+    "android:bundle": "npm run android:sync && cd android && gradlew bundleRelease"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jeanvinicius-R/bomberman.git"
+  },
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@capacitor/app": "8.1.2",
+    "@capacitor/core": "8.5.3",
+    "@capacitor/haptics": "8.0.2",
+    "@fontsource/press-start-2p": "5.3.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/cli": "8.5.3",
+    "@eslint/js": "10.0.1",
+    "eslint": "10.12.0",
+    "globals": "17.13.0",
+    "sharp": "0.35.5",
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
+  },
+  "overrides": {
+    "uuid": "11.1.1"
+  }
+}

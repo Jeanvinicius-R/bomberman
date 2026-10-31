@@ -1,0 +1,16 @@
+node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+
+# Android: artefatos de build e segredos de assinatura nunca vão para o git
+android/app/build/
+android/build/
+android/.gradle/
+android/local.properties
+android/keystore.properties
+*.jks
+*.keystore
+*.aab
+*.apk
